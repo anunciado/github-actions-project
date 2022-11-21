@@ -37,6 +37,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         file: ./Dockerfile
+        context: .
         push: true
         tags: cruxiu/demo-app:latest   
         
