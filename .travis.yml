@@ -8,10 +8,8 @@ jdk: openjdk8
   
 script:
   - ./gradlew build --scan -s
-  - docker build -t back .
+  - docker build -t java-app .
 after_success:
-  - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-  - docker tag back $DOCKER_USER/back:$TRAVIS_BUILD_NUMBER
-  - docker push $DOCKER_USER/back:$TRAVIS_BUILD_NUMBER
-  - docker tag back $DOCKER_USER/back:latest
-  - docker push $DOCKER_USER/back:latest
+  - docker build -t registry.docker.com/cruxiu/demo-app .
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD registry.docker.com
+  - docker push registry.docker.com/cruxiu/demo-app
